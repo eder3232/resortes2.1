@@ -1,3 +1,112 @@
+//variables para graficar
+const graficoNodos = []
+const graficoEnlaces = []
+
+//funciones necesarias
+
+function countProperties(obj) {
+  var count = 0
+
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop)) ++count
+  }
+
+  return count
+}
+
+function twoDimensionArray(a, b) {
+  let arr = []
+
+  // creating two dimensional array
+  for (let i = 0; i < a; i++) {
+    for (let j = 0; j < b; j++) {
+      arr[i] = []
+    }
+  }
+
+  // inserting elements to array
+  for (let i = 0; i < a; i++) {
+    for (let j = 0; j < b; j++) {
+      arr[i][j] = 0
+    }
+  }
+  return arr
+}
+//clase que crea el grafo ponderado no dirigido
+
+class WeightedGraph {
+  constructor() {
+    this.adjacencyList = {}
+  }
+  addVertex(name) {
+    if (!this.adjacencyList[name]) {
+      this.adjacencyList[name] = {}
+    }
+  }
+  addEdge(vert1, vert2, weight) {
+    this.adjacencyList[vert1][vert2] = weight
+    this.adjacencyList[vert2][vert1] = weight
+  }
+  removeEdge(v1, v2) {
+    delete this.adjacencyList[v1][v2]
+    delete this.adjacencyList[v2][v1]
+  }
+  removeVertex(vert) {
+    for (let i in this.adjacencyList[vert]) {
+      this.removeEdge(vert, i)
+    }
+    delete this.adjacencyList[vert]
+  }
+  DFS(target) {
+    const result = []
+    const visited = {}
+    const helper = (vert) => {
+      if (!vert) return null
+      visited[vert] = true
+      result.push(vert)
+      for (let neighbor in this.adjacencyList[vert]) {
+        if (!visited[neighbor]) {
+          return helper(neighbor)
+        }
+      }
+    }
+    helper(target)
+    return result
+  }
+  BFS(start) {
+    const queue = [start]
+    const result = []
+    const visited = {}
+    while (queue.length) {
+      let current = queue.shift()
+      visited[current] = true
+      result.push(current)
+      for (let neighbor in this.adjacencyList[current]) {
+        if (!visited[neighbor]) {
+          visited[neighbor] = true
+          queue.push(neighbor)
+        }
+      }
+    }
+    return result
+  }
+
+  Dijkstras(start, finish) {
+    // List1
+    const costFromStartTo = {}
+    // List2
+    const checkList = new PriorityQueue()
+    // List3
+    const prev = {}
+
+    let current
+    let result = []
+    for (let vert in this.adjacencyList) {
+    }
+    while (checkList.values.length) {}
+  }
+}
+
 //agregar quitar nodos
 const agregarNudo = document.getElementById('addNode')
 const removeNudo = document.getElementById('removeNode')
@@ -11,7 +120,7 @@ agregarNudo.addEventListener('click', () => {
             <td><input type="number" class="number datosNudos" value="${
               nudos.length + 1
             }"></td>
-            <td><input type="number" class="number datosFuerza"></td>          
+            <td><input class="number datosFuerza" onfocus="this.value=''"></td>          
           </tr> 
   `
 })
@@ -32,9 +141,9 @@ agregarBorde.addEventListener('click', () => {
             <td><input type="number" class="number" value="${
               resortes.length + 1
             }"></td>
-            <td><input type="number" class="number datosk"></td>    
-            <td><input type="number" class="number from"></td>
-            <td><input type="number" class="number to"></td>       
+            <td><input type="number" class="number datosk" onfocus="this.value=''"></td>    
+            <td><input type="number" class="number from" onfocus="this.value=''"></td>
+            <td><input type="number" class="number to" onfocus="this.value=''"></td>       
           </tr>  
   `
 })
@@ -68,7 +177,7 @@ function datosResortes() {
   for (let i = 0; i < datosFrom.length; i++) {
     inputFrom.push(parseFloat(datosFrom[i].value))
   }
-  const datosTo = document.querySelector('.to')
+  const datosTo = document.querySelectorAll('.to')
   for (let i = 0; i < datosTo.length; i++) {
     inputTo.push(parseFloat(datosTo[i].value))
   }
@@ -82,6 +191,186 @@ function escribiendoResortes() {
     edges.push({ k: inputK[i] })
   }
   //console.log(edges)
+  //console.log(inputFrom)
+  //console.log(inputTo)
+  //console.log(edges)
+  //console.log(vertices)
+}
+
+//funcion creadora del grafo
+function creagrafo() {
+  let eder = new WeightedGraph()
+  for (let i = 0; i < vertices.length; i++) {
+    eder.addVertex(i + 1)
+  }
+
+  for (let i = 0; i < edges.length; i++) {
+    eder.addEdge(inputFrom[i], inputTo[i], i + 1)
+  }
+  //console.log(eder)
+
+  //aca se escriben la constante necesaria para graficar graficoNodos
+  for (let i = 0; i < vertices.length; i++) {
+    graficoNodos.push({ key: i + 1, text: `Nodo ${i + 1}` })
+  }
+
+  // esta es la parte logica que se encarga de ejecutar el calculo
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  let reacciones = 0
+  vertices.forEach((elemento) => {
+    if (isNaN(elemento.modulo)) {
+      reacciones++
+    }
+  })
+  console.log(reacciones)
+
+  let Fu = twoDimensionArray(vertices.length - reacciones, 1)
+  // escribiendo Fu
+  for (let i = reacciones; i <= vertices.length - reacciones; i++) {
+    Fu[i - reacciones][0] = vertices[i].modulo
+  }
+
+  let k = twoDimensionArray(vertices.length, vertices.length)
+
+  let ur = twoDimensionArray(reacciones, 1)
+
+  let kuu = twoDimensionArray(
+    vertices.length - reacciones,
+    vertices.length - reacciones
+  )
+
+  let kur = twoDimensionArray(vertices.length - reacciones, reacciones)
+
+  let conexiones = []
+
+  for (let i = 1; i <= edges.length; i++) {
+    for (let j = 1; j <= vertices.length; j++) {
+      for (let k = 1; k <= vertices.length; k++) {
+        let parcial = []
+        //console.log('i', i, 'j', j, 'k', k)
+        if (eder.adjacencyList[j][k] == i) {
+          parcial.push(
+            i,
+            [j, k].sort((a, b) => a - b)
+          )
+          //console.log(parcial)
+          conexiones.push(parcial)
+        }
+      }
+    }
+  }
+
+  let stringArray = conexiones.map(JSON.stringify)
+  let uniqueStringArray = new Set(stringArray)
+  let uniqueArray = Array.from(uniqueStringArray, JSON.parse)
+
+  //aca se escribe la variable necesaria para graficar graficoEnlaces
+  for (let i = 0; i < uniqueArray.length; i++) {
+    graficoEnlaces.push({
+      from: uniqueArray[i][1][0],
+      to: uniqueArray[i][1][1],
+      text: `Resorte ${i + 1}`,
+    })
+  }
+  console.log('grafico')
+  console.log(graficoNodos)
+  console.log(graficoEnlaces)
+
+  //console.log(uniqueArray)
+
+  //crea la matriz k completa
+  for (let i = 0; i < uniqueArray.length; i++) {
+    let a = uniqueArray[i][1][0] - 1
+    let b = uniqueArray[i][1][1] - 1
+    console.log('a', a, 'b', b)
+
+    k[a][a] += edges[i].k
+    k[a][b] += -edges[i].k
+    k[b][a] += -edges[i].k
+    k[b][b] += edges[i].k
+  }
+  //console.log(k)
+  //creamos kuu
+  for (let i = reacciones; i < vertices.length; i++) {
+    for (let j = reacciones; j < vertices.length; j++) {
+      kuu[i - reacciones][j - reacciones] = k[i][j]
+    }
+  }
+  //console.log(kuu)
+
+  //creamos kur
+  for (let i = reacciones; i < vertices.length; i++) {
+    for (let j = 0; j < reacciones; j++) {
+      kur[i - reacciones][j] = k[i][j]
+    }
+  }
+  //comprobacion de las submatrices necesarias para el calculo
+  console.log('kuu')
+  console.log(kuu)
+  console.log('Fu')
+  console.log(Fu)
+  console.log('kur')
+  console.log(kur)
+  console.log('ur')
+  console.log(ur)
+
+  // calculo y comprobacion final
+
+  let respuesta = math.inv(kuu)
+  let respuesta2 = math.multiply(kur, ur)
+  let respuesta3 = math.subtract(Fu, respuesta2)
+  let uu = math.multiply(respuesta, respuesta3)
+  console.log(respuesta)
+  console.log(respuesta2)
+  console.log(respuesta3)
+  console.log('respuesta')
+  console.log(uu)
+  ///////////////////////////////////////////////////////////////////
+  // calculo de reacciones
+  console.log('Reacciones')
+  const krr = twoDimensionArray(reacciones, reacciones)
+  for (let i = 0; i < reacciones; i++) {
+    for (let j = 0; j < reacciones; j++) {
+      krr[i][j] = k[i][j]
+    }
+  }
+  const kru = twoDimensionArray(reacciones, vertices.length - reacciones)
+  for (let i = 0; i < reacciones; i++) {
+    for (let j = reacciones; j < vertices.length; j++) {
+      kru[i][j - reacciones] = k[i][j]
+    }
+  }
+
+  let resp1 = math.multiply(krr, ur)
+  let resp2 = math.multiply(kru, uu)
+  let fr = math.add(resp1, resp2)
+  console.log(fr)
+
+  //impresion
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const desplazamientos = document.getElementById('tbodyOutPut')
+  for (let i = 0; i < uu.length; i++) {
+    desplazamientos.innerHTML += `
+    <tr>
+            <td><input type="number" class="number outputU" value="${
+              reacciones + i
+            }"></td>
+            <td><input type="number" class="number outputU" value="${
+              uu[i][0]
+            }" ></td>          
+          </tr> 
+    
+    `
+  }
+
+  const laUltima = document.getElementById('tbodyOutPut2')
+  for (let i = 0; i < reacciones; i++) {
+    laUltima.innerHTML += `<tr>
+    <td><input type="number" class="number outputU" value="${i}"></td>
+    <td><input type="number" class="number outputU" value="${fr[i][0]}" ></td>          
+  </tr> 
+  `
+  }
 }
 
 //crear la funcion que quita la clase visible
@@ -97,6 +386,7 @@ function boton() {
   datosFuerzas()
   datosResortes()
   escribiendoResortes()
+  creagrafo()
   muestra()
 }
 

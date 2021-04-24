@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      language="JavaScript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.3.2/math.js"
+    ></script>
     <link rel="stylesheet" href="./style.css" />
     <title>Add and Remove</title>
   </head>
@@ -26,19 +30,19 @@
         <tbody id="tbodyNode">
           <tr class="nodo">
             <td><input type="number" class="number datosNudos" value="1"></td>
-            <td><input class="number datosFuerza" value="R"></td>          
+            <td><input class="number datosFuerza" value="R" ></td>          
           </tr>
           <tr class="nodo">
-            <td><input type="number" class="number datosNudos" value="2"></td>
-            <td><input type="number" class="number datosFuerza"></td>          
+            <td><input type="number" class="number datosNudos " value="2"></td>
+            <td><input class="number datosFuerza" onfocus="this.value=''" ></td>          
           </tr>
           <tr class="nodo">
-            <td><input type="number" class="number datosNudos" value="3"></td>
-            <td><input type="number" class="number datosFuerza"></td>          
+            <td><input type="number" class="number datosNudos " value="3"></td>
+            <td><input class="number datosFuerza" onfocus="this.value=''"></td>          
           </tr>
           <tr class="nodo">
-            <td><input type="number" class="number datosNudos" value="4"></td>
-            <td><input type="number" class="number datosFuerza"></td>          
+            <td><input type="number" class="number datosNudos " value="4"></td>
+            <td><input class="number datosFuerza" onfocus="this.value=''"></td>          
           </tr>
           
           </tr>
@@ -67,21 +71,21 @@
         <tbody id="tbodyEdge">
           <tr class="resorte">
             <td><input type="number" class="number" value="1"></td>
-            <td><input type="number" class="number datosk"></td>    
-            <td><input type="number" class="number from "></td>
-            <td><input type="number" class="number to"></td>       
+            <td><input type="number" class="number datosk" onfocus="this.value=''"></td>    
+            <td><input type="number" class="number from " onfocus="this.value=''"></td>
+            <td><input type="number" class="number to"onfocus="this.value=''"></td>       
           </tr>
           <tr class="resorte">
             <td><input type="number" class="number" value="2"></td>
-            <td><input type="number" class="number datosk"></td>   
-            <td><input type="number" class="number from"></td>
-            <td><input type="number" class="number to"></td>        
+            <td><input type="number" class="number datosk" onfocus="this.value=''"></td>   
+            <td><input type="number" class="number from" onfocus="this.value=''"></td>
+            <td><input type="number" class="number to" onfocus="this.value=''"></td>        
           </tr>
           <tr class="resorte">
             <td><input type="number" class="number" value="3"></td>
-            <td><input type="number" class="number datosk"></td>  
-            <td><input type="number" class="number from"></td>
-            <td><input type="number" class="number to"></td>         
+            <td><input type="number" class="number datosk" onfocus="this.value=''"></td>  
+            <td><input type="number" class="number from" onfocus="this.value=''"></td>
+            <td><input type="number" class="number to" onfocus="this.value=''"></td>         
           </tr>
           
           </tr>
@@ -108,21 +112,25 @@
           
         </tr>
   
-        <tbody id="tbodyOutPut">
-          <tr>
-            <td><input type="number" class="number outputU"></td>
-            <td><input type="number" class="number outputUValue"></td>          
-          </tr>
-          <tr>
-            <td><input type="number" class="number outputU"></td>
-            <td><input type="number" class="number outputUValue"></td>          
-          </tr>
-          <tr>
-            <td><input type="number" class="number outputU"></td>
-            <td><input type="number" class="number outputUValue"></td>          
-          </tr>
-          
+        <tbody id="tbodyOutPut">         
         </tbody>
+
+        
+
+      </table>
+    </div>
+
+    <div class="tabla">
+      <table id="outPut">
+        <tr>
+          <th>U</th>
+          <th>despl</th>
+          
+        </tr>    
+
+        <tbody id="tbodyOutPut2">         
+        </tbody>
+        
       </table>
     </div>
   </div>
