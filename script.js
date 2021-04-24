@@ -32,6 +32,90 @@ function twoDimensionArray(a, b) {
   }
   return arr
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//funcion que grafica
+function init(nodos, enlaces) {
+  let $ = go.GraphObject.make
+  myDiagram = $(
+    go.Diagram,
+    'myDiagramDiv', // must name or refer to the DIV HTML element
+    {
+      initialAutoScale: go.Diagram.Uniform, // an initial automatic zoom-to-fit
+      contentAlignment: go.Spot.Center, // align document to the center of the viewport
+      layout: $(
+        go.ForceDirectedLayout, // automatically spread nodes apart
+        {
+          maxIterations: 200,
+          defaultSpringLength: 30,
+          defaultElectricalCharge: 100,
+        }
+      ),
+    }
+  )
+
+  myDiagram.nodeTemplate = $(
+    go.Node,
+    'Auto', // the whole node panel
+    { locationSpot: go.Spot.Center },
+    // define the node's outer shape, which will surround the TextBlock
+    $(go.Shape, 'Rectangle', {
+      fill: $(go.Brush, 'Linear', {
+        0: 'rgb(254, 201, 0)',
+        1: 'rgb(254, 162, 0)',
+      }),
+      stroke: 'black',
+    }),
+    $(
+      go.TextBlock,
+      { font: 'bold 10pt helvetica, bold arial, sans-serif', margin: 4 },
+      new go.Binding('text', 'text')
+    )
+  )
+
+  myDiagram.linkTemplate = $(
+    go.Link, // the whole link panel
+    $(
+      go.Shape, // the link shape
+      { stroke: 'black' }
+    ),
+    $(
+      go.Shape, // the arrowhead
+      { toArrow: 'standard', stroke: null }
+    ),
+    $(
+      go.Panel,
+      'Auto',
+      $(
+        go.Shape, // the label background, which becomes transparent around the edges
+        {
+          fill: $(go.Brush, 'Radial', {
+            0: 'rgb(240, 240, 240)',
+            0.3: 'rgb(240, 240, 240)',
+            1: 'rgba(240, 240, 240, 0)',
+          }),
+          stroke: null,
+        }
+      ),
+      $(
+        go.TextBlock, // the label text
+        {
+          textAlign: 'center',
+          font: '10pt helvetica, arial, sans-serif',
+          stroke: '#555555',
+          margin: 4,
+        },
+        new go.Binding('text', 'text')
+      )
+    )
+  )
+
+  let nodeDataArray = nodos
+  let linkDataArray = enlaces
+  myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray)
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //clase que crea el grafo ponderado no dirigido
 
 class WeightedGraph {
@@ -376,11 +460,13 @@ function creagrafo() {
 //crear la funcion que quita la clase visible
 function muestra() {
   tablafinal.classList.remove('notVisible')
+  elgrafico.classList.remove('notVisible')
 }
 
 //boton calcular
 const tablafinal = document.getElementById('finalTable')
 const calcular = document.getElementById('calculate')
+const elgrafico = document.getElementById('myDiagramDiv')
 
 function boton() {
   datosFuerzas()
@@ -388,6 +474,7 @@ function boton() {
   escribiendoResortes()
   creagrafo()
   muestra()
+  init(graficoNodos, graficoEnlaces)
 }
 
 // paso final
