@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Add and Remove</title>
+  </head>
+  <body>
+<div class="container">
+  <div class=" nudos">
+    <div class="botones">        
+        <div id="addNode" class="add boton">addNode</div>       
+        <div id="removeNode" class="remove boton">removeNode</div>       
+    </div>
+    
+    <div class="tabla">
+      <table id="tableNode">
+        <tr>
+          <th>Nudo</th>
+          <th>Fuerza</th>
+          
+        </tr>
+  
+        <tbody id="tbodyNode">
+          <tr class="nodo">
+            <td><input type="number" class="number datosNudos" value="1"></td>
+            <td><input class="number datosFuerza" value="R"></td>          
+          </tr>
+          <tr class="nodo">
+            <td><input type="number" class="number datosNudos" value="2"></td>
+            <td><input type="number" class="number datosFuerza"></td>          
+          </tr>
+          <tr class="nodo">
+            <td><input type="number" class="number datosNudos" value="3"></td>
+            <td><input type="number" class="number datosFuerza"></td>          
+          </tr>
+          <tr class="nodo">
+            <td><input type="number" class="number datosNudos" value="4"></td>
+            <td><input type="number" class="number datosFuerza"></td>          
+          </tr>
+          
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <div class=" resortes">
+    <div class="botones">        
+        <div id="addEdge" class="add boton">addResorte</div>       
+        <div id="removeEdge" class="remove boton">removeResorte</div>       
+    </div>
+    
+    <div class="tabla">
+      <table id="tableEdge">
+        <tr>
+          <th>Resorte</th>
+          <th>k</th>
+          <th>desde</th>
+          <th>hasta</th>
+          
+        </tr>
+  
+        <tbody id="tbodyEdge">
+          <tr class="resorte">
+            <td><input type="number" class="number" value="1"></td>
+            <td><input type="number" class="number datosk"></td>    
+            <td><input type="number" class="number from "></td>
+            <td><input type="number" class="number to"></td>       
+          </tr>
+          <tr class="resorte">
+            <td><input type="number" class="number" value="2"></td>
+            <td><input type="number" class="number datosk"></td>   
+            <td><input type="number" class="number from"></td>
+            <td><input type="number" class="number to"></td>        
+          </tr>
+          <tr class="resorte">
+            <td><input type="number" class="number" value="3"></td>
+            <td><input type="number" class="number datosk"></td>  
+            <td><input type="number" class="number from"></td>
+            <td><input type="number" class="number to"></td>         
+          </tr>
+          
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    
+  </div>
+
+
+  <div class="botones">        
+          
+    <div id="calculate" class="calculate boton">calcular</div>       
+  </div>
+
+  <div id="finalTable" class=" resultados notVisible">   
+    
+    <div class="tabla">
+      <table id="outPut">
+        <tr>
+          <th>U</th>
+          <th>despl</th>
+          
+        </tr>
+  
+        <tbody id="tbodyOutPut">
+          <tr>
+            <td><input type="number" class="number outputU"></td>
+            <td><input type="number" class="number outputUValue"></td>          
+          </tr>
+          <tr>
+            <td><input type="number" class="number outputU"></td>
+            <td><input type="number" class="number outputUValue"></td>          
+          </tr>
+          <tr>
+            <td><input type="number" class="number outputU"></td>
+            <td><input type="number" class="number outputUValue"></td>          
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+    
+
+    
+
+    
+
+    <script src="./script.js"></script>
+  </body>
+</html>
