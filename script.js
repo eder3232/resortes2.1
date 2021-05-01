@@ -204,7 +204,8 @@ agregarNudo.addEventListener('click', () => {
             <td><input type="number" class="number datosNudos" value="${
               nudos.length + 1
             }"></td>
-            <td><input class="number datosFuerza" onfocus="this.value=''"></td>          
+            <td><input class="number datosFuerza" onfocus="this.value=''"></td> 
+            <td><input class="number datosDesplazamiento" value="0" onfocus="this.value=''"></td>          
           </tr> 
   `
 })
@@ -240,10 +241,14 @@ let vertices = []
 
 function datosFuerzas() {
   const datosFuerza = document.querySelectorAll('.datosFuerza')
+  const datosDesplazamiento = document.querySelectorAll('.datosDesplazamiento')
   //console.log(datosFuerza[1].value)
   //console.log(datosFuerza.length)
   for (let i = 0; i < datosFuerza.length; i++) {
-    vertices.push({ modulo: parseFloat(datosFuerza[i].value) })
+    vertices.push({
+      modulo: parseFloat(datosFuerza[i].value),
+      desplazamiento: parseFloat(datosDesplazamiento[i].value),
+    })
   }
   //console.log(vertices)
 }
@@ -253,7 +258,7 @@ let inputTo = []
 
 function datosResortes() {
   const datosK = document.querySelectorAll('.datosk')
-  console.log(datosK[1].value)
+  //console.log(datosK[1].value)
   for (let i = 0; i < datosK.length; i++) {
     inputK.push(parseFloat(datosK[i].value))
   }
@@ -306,12 +311,15 @@ function creagrafo() {
       reacciones++
     }
   })
-  console.log(reacciones)
-
+  /* console.log(reacciones)
+  console.log(vertices)
+  console.log(vertices.length) */
   let Fu = twoDimensionArray(vertices.length - reacciones, 1)
   // escribiendo Fu
-  for (let i = reacciones; i <= vertices.length - reacciones; i++) {
+  for (let i = reacciones; i < vertices.length; i++) {
     Fu[i - reacciones][0] = vertices[i].modulo
+    //console.log(vertices[i].modulo)
+    //console.log(i)
   }
 
   let k = twoDimensionArray(vertices.length, vertices.length)
@@ -356,9 +364,9 @@ function creagrafo() {
       text: `Resorte ${i + 1}`,
     })
   }
-  console.log('grafico')
+  /* console.log('grafico')
   console.log(graficoNodos)
-  console.log(graficoEnlaces)
+  console.log(graficoEnlaces) */
 
   //console.log(uniqueArray)
 
@@ -366,7 +374,7 @@ function creagrafo() {
   for (let i = 0; i < uniqueArray.length; i++) {
     let a = uniqueArray[i][1][0] - 1
     let b = uniqueArray[i][1][1] - 1
-    console.log('a', a, 'b', b)
+    //console.log('a', a, 'b', b)
 
     k[a][a] += edges[i].k
     k[a][b] += -edges[i].k
@@ -388,7 +396,14 @@ function creagrafo() {
       kur[i - reacciones][j] = k[i][j]
     }
   }
+  //escribimos ur
+  for (let i = 0; i < reacciones; i++) {
+    ur[i][0] = vertices[i].desplazamiento
+  }
+
   //comprobacion de las submatrices necesarias para el calculo
+  console.log('k')
+  console.log(k)
   console.log('kuu')
   console.log(kuu)
   console.log('Fu')
@@ -404,11 +419,11 @@ function creagrafo() {
   let respuesta2 = math.multiply(kur, ur)
   let respuesta3 = math.subtract(Fu, respuesta2)
   let uu = math.multiply(respuesta, respuesta3)
-  console.log(respuesta)
+  /* console.log(respuesta)
   console.log(respuesta2)
   console.log(respuesta3)
   console.log('respuesta')
-  console.log(uu)
+  console.log(uu) */
   ///////////////////////////////////////////////////////////////////
   // calculo de reacciones
   console.log('Reacciones')
@@ -428,6 +443,7 @@ function creagrafo() {
   let resp1 = math.multiply(krr, ur)
   let resp2 = math.multiply(kru, uu)
   let fr = math.add(resp1, resp2)
+  console.log('fr')
   console.log(fr)
 
   //impresion
@@ -437,10 +453,10 @@ function creagrafo() {
     desplazamientos.innerHTML += `
     <tr>
             <td><input type="number" class="number outputU" value="${
-              reacciones + i
+              reacciones + i + 1
             }"></td>
             <td><input type="number" class="number outputU" value="${
-              uu[i][0]
+              Math.round(uu[i][0] * 1000) / 1000
             }" ></td>          
           </tr> 
     
@@ -450,8 +466,10 @@ function creagrafo() {
   const laUltima = document.getElementById('tbodyOutPut2')
   for (let i = 0; i < reacciones; i++) {
     laUltima.innerHTML += `<tr>
-    <td><input type="number" class="number outputU" value="${i}"></td>
-    <td><input type="number" class="number outputU" value="${fr[i][0]}" ></td>          
+    <td><input type="number" class="number outputU" value="${i + 1}"></td>
+    <td><input type="number" class="number outputU" value="${
+      Math.round(fr[i][0] * 1000) / 1000
+    }" ></td>          
   </tr> 
   `
   }

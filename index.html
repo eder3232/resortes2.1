@@ -29,25 +29,29 @@
         <tr>
           <th>Nudo</th>
           <th>Fuerza</th>
-          
+          <th>Desplaz</th>
         </tr>
   
         <tbody id="tbodyNode">
           <tr class="nodo">
             <td><input type="number" class="number datosNudos" value="1"></td>
-            <td><input class="number datosFuerza" value="R" ></td>          
+            <td><input class="number datosFuerza" value="R" ></td>  
+            <td><input class="number datosDesplazamiento" value="0" onfocus="this.value=''"></td>          
           </tr>
           <tr class="nodo">
             <td><input type="number" class="number datosNudos " value="2"></td>
-            <td><input class="number datosFuerza" onfocus="this.value=''" ></td>          
+            <td><input class="number datosFuerza" onfocus="this.value=''" ></td>
+            <td><input class="number datosDesplazamiento" value="0" onfocus="this.value=''"></td>           
           </tr>
           <tr class="nodo">
             <td><input type="number" class="number datosNudos " value="3"></td>
-            <td><input class="number datosFuerza" onfocus="this.value=''"></td>          
+            <td><input class="number datosFuerza" onfocus="this.value=''"></td>  
+            <td><input class="number datosDesplazamiento" value="0" onfocus="this.value=''"></td>         
           </tr>
           <tr class="nodo">
             <td><input type="number" class="number datosNudos " value="4"></td>
-            <td><input class="number datosFuerza" onfocus="this.value=''"></td>          
+            <td><input class="number datosFuerza" onfocus="this.value=''"></td>
+            <td><input class="number datosDesplazamiento" value="0" onfocus="this.value=''"></td>           
           </tr>
           
           </tr>
@@ -113,36 +117,26 @@
       <table id="outPut">
         <tr>
           <th>U</th>
-          <th>despl</th>
-          
-        </tr>
-  
+          <th>Desplazamiento</th>          
+        </tr>  
         <tbody id="tbodyOutPut">         
-        </tbody>
-
-        
-
+        </tbody>   
       </table>
     </div>
 
     <div class="tabla">
       <table id="outPut">
         <tr>
-          <th>U</th>
-          <th>despl</th>
-          
+          <th>Nodo</th>
+          <th>Reaccion</th>          
         </tr>    
-
         <tbody id="tbodyOutPut2">         
-        </tbody>
-        
+        </tbody>        
       </table>
     </div>
   </div>
   <div class="notVisible"id="myDiagramDiv"></div>
-</div>   
-
-    
+</div>      
 
     <script src="./script.js"></script>
   </body>
